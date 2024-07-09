@@ -17,7 +17,7 @@ const gpt = async (gptPrompt) => {
         })
         return response.choices[0].message.content
     } catch (error) {
-        console.log(error.message)
+        console.log("gpt function Error: " + error.message)
         return null
     }
 }

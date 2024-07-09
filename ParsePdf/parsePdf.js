@@ -1,7 +1,8 @@
 const pdfParse = require('pdf-parse');
 const fs = require("fs")
 const aiFunc = require("../AI-Helpers/aiFunc")
-let convertToExcel = require("../ExcelConvert/excelConvert")
+const convertToExcel = require("../ExcelConvert/excelConvert")
+const path = require("path")
 
 const pdfParseFunc = async (req, res) => {
     try {
@@ -16,14 +17,14 @@ const pdfParseFunc = async (req, res) => {
             let jsonData = jsonString.replace(/^```json\s+/g, '').replace(/\s+```$/g, '');
             arr.push(JSON.parse(jsonData))
             
-
+            fs.unlinkSync(path.join(__dirname, '../uploads', file.filename));
         }
 
         convertToExcel.convertToExcel(arr)        
         return res.status(200).json({ message: arr });
 
     } catch (error) {
-        console.log(error)
+        console.log("pdfParseFunc Error: " + error)
         return res.status(500).json({ message: error.message });
     }
 };

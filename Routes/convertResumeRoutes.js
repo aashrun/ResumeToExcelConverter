@@ -7,7 +7,7 @@ let upload = multer({ dest: 'uploads/' });
 
 
 
-router.post("/convert", upload.array('pdfs', 12), parsePdf.pdfParseFunc)
+router.post("/convert", upload.array('pdfs'), parsePdf.pdfParseFunc)
 
 
 
