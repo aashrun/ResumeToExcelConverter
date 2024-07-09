@@ -12,9 +12,11 @@ const pdfParseFunc = async (req, res) => {
             const dataBuffer = fs.readFileSync(file.path); 
             const data = await pdfParse(dataBuffer);
             
-            let jsonString = await aiFunc.gpt(`${[data.text]}, I need name, mobile, email, location, yearsOfExperience, position, age, linkedInProfile enclosed in an object. Find these details in the above given array's 0th index and strictly reply with a object.`)
+            let jsonString = await aiFunc.gpt(`${[data.text]}, I need name, mobile, email, location, yearsOfExperience, position, age, linkedInProfile enclosed in an object. Find these details in the above given array's 0th index and STRICTLY reply with a JSON object ONLY.`)
+            console.log(jsonString)
             let jsonData = jsonString.replace(/^```json\s+/g, '').replace(/\s+```$/g, '');
             arr.push(JSON.parse(jsonData))
+            
 
         }
 
